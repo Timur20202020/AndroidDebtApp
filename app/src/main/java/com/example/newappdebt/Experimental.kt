@@ -87,11 +87,11 @@ fun EditSreenExperimental(
     val debthistory2 by viewModel.debtFlowHistory.collectAsState()
 
 
-     val amount by remember { mutableStateOf(100.0) }
+//     val amount by remember { mutableStateOf(100.0) }
 
 
-     viewModel.getDebtByUser(id.toInt())
-     val debts by viewModel.debtFlowHistory.collectAsState()
+//     viewModel.getDebtByUser(id.toInt())
+//     val debts by viewModel.debtFlowHistory.collectAsState()
 
 
 Column(modifier = Modifier.padding(24.dp) ) {
@@ -254,8 +254,9 @@ Column(modifier = Modifier.padding(24.dp) ) {
             }
 
             Spacer(Modifier.height(16.dp))
+            Text("${debthistory2.size}")
              Row(modifier = Modifier.background(Color(47, 49, 109))) {
-              DebtHistoryList(debthistory)
+              DebtHistoryList(debthistory2)
           }
 
         }

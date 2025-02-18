@@ -48,7 +48,7 @@ interface UserDao {
     fun getDebtsHistory(): Flow<List<Debt_History>>
 
     @Query("SELECT * FROM debt_history  WHERE userId = :userId")
-    fun getDebtHistoryByUser(userId: Int):Debt_History
+    fun getDebtHistoryByUser(userId: Int):Flow<List<Debt_History>>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

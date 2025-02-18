@@ -17,7 +17,9 @@ class UserRepository(private val dao:UserDao){
 //        return dao.getUsersById(userId = id)
 //    }
 
-
+    fun getUsersWithIf(isSwitched: Boolean): Flow<List<User>> {
+        return dao.getUsersWIthIf(isSwitched)
+    }
 
     suspend fun addUser(name:String, amount:Double,comment:String?, createdate:String,
                         isSwitch:Boolean, dateOfReturn:String){
@@ -40,7 +42,7 @@ class UserRepository(private val dao:UserDao){
         return   userUnit
     }
 
-    suspend fun getHistoryByUser(id: Int): Debt_History {
+    suspend fun getHistoryByUser(id: Int): Flow<List<Debt_History>> {
         val debthistory = dao.getDebtHistoryByUser(userId = id)
         return debthistory
     }

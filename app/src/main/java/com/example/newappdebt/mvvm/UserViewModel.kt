@@ -33,7 +33,9 @@ class UserViewModel(private  val repository: UserRepository) : ViewModel() {
 
 
     private val _debtFlow = MutableStateFlow<List<Debt_History>>(emptyList())
-    val debtFlowHistory: StateFlow<List<Debt_History>> =_debtFlow
+    val debtFlowHistory: StateFlow<List<Debt_History>> get() =_debtFlow
+
+
 
 //    fun get_user_by_id(id: Int):User {
 //        return repository.get_user_by_id(id=id)
@@ -87,12 +89,9 @@ class UserViewModel(private  val repository: UserRepository) : ViewModel() {
 
     fun getDebtByUser(id: Int){
         viewModelScope.launch {
-            try {
-                val debtHistory =   repository.getHistoryByUser(id)  // Убедитесь, что getUserById в repository - suspend функция
-                _debtFlow.value  = listOf(debtHistory)
-            } catch (e: Exception) {
-                // Обработайте ошибку, если нужно
-                Log.e("Error", "Failed to get user by ID", e)
+
+            repository.getHistoryByUser(id).collect(){
+                debtList -> _debtFlow.value = debtList
             }
 
         }

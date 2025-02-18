@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -39,6 +40,7 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
@@ -119,39 +121,6 @@ fun changeAmountscreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navC
 fun changeScreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navController:NavHostController,backStackEntry:NavBackStackEntry) {
 
 
-//    val chek:Boolean = true
-//    val id = backStackEntry.arguments?.getString("id") ?: ""
-//    val sign = backStackEntry.arguments?.getString("negativesign") ?: ""
-//
-//
-//    viewModel.getUserById(id.toInt())
-//
-//    val user by viewModel.userLiveData.collectAsState()
-//
-//    var changeAmountValue by remember { mutableStateOf(0.0) }
-//
-//    Column(modifier = Modifier.fillMaxSize().background(Color(47, 49, 109)).padding(24.dp)) {
-//
-//        TextField(value = changeAmountValue.toString(), onValueChange = { changeAmountValue =
-//            it.toDouble()
-//        })
-//        Button(
-//            onClick = {
-//                viewModel.addDebt(
-//                    dateEdit = LocalDate.now().toString(),
-//                    amount = changeAmountValue,
-//                    isDebtReduce = sign.toBoolean(),
-//                    userId = id.toInt()
-//                )
-//                viewModel.updateUser(id.toInt(),
-//                    change = if (sign.toBoolean() == true){-changeAmountValue.toDouble()}else{changeAmountValue.toDouble()}
-//                ); navController.popBackStack()
-//            }
-//        ) {
-//            Text(if (sign.toBoolean() == true){"-"}else{"+"})
-//        }
-//    }
-
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
     var changeAmountValue by remember { mutableStateOf(0.0) }
@@ -214,8 +183,10 @@ fun changeScreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navControl
             value = changeAmountValue.toString(),
             onValueChange = { changeAmountValue = it.toDoubleOrNull() ?: 0.0 },
             label = { Text("Сумма", color = Color.White) },
-            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester)
-        )
+            modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+
+            )
 
         // Устанавливаем фокус на текстовое поле при первом рендеринге
         LaunchedEffect(Unit) {
