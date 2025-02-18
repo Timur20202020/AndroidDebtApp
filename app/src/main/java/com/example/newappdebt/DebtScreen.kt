@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -37,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -52,7 +54,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
     val users by viewModel.users.collectAsState()
 
     var name by remember {   mutableStateOf("") }
-    var inputamount by remember  { mutableStateOf(0.00) }
+    var inputamount by remember  { mutableStateOf("") }
     var swtch by remember { mutableStateOf(true) }
 
     var selectedDate by remember { mutableStateOf(LocalDate.now()) } // Храним выбранную дату
@@ -88,7 +90,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
 
                 viewModel.addUSer(
                     name,
-                    inputamount,
+                    inputamount.toDouble(),
                     comment.toString(),
                     createdate = LocalDate.now().toString(),
                     swtch,
@@ -192,10 +194,13 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = inputamount.toString(),
-                onValueChange = {inputamount=it.toDouble()},
+                onValueChange = {inputamount= it },
                 label = { Text("Сумма", color = Color.White) },
-                modifier = Modifier.fillMaxWidth()
-            )
+                modifier = Modifier.fillMaxWidth(),
+                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+
+
+                )
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 value = comment,
