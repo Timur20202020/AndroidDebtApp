@@ -243,7 +243,9 @@ fun DebtItem(debt: User, navController: NavController) {
         .padding(8.dp)
 
         .background(Color.Transparent, shape = RoundedCornerShape(28.dp))
-        .clickable { }
+        .clickable {
+            navController.navigate("edit/${debt.id}")
+        }
     ) {
 
         Column(modifier = Modifier
