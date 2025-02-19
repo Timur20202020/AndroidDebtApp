@@ -123,7 +123,7 @@ fun changeScreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navControl
 
     val focusRequester = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
-    var changeAmountValue by remember { mutableStateOf(0.0) }
+    var changeAmountValue by remember { mutableStateOf("") }
 
     val id = backStackEntry.arguments?.getString("id") ?: ""
     val sign = backStackEntry.arguments?.getString("negativesign") ?: ""
@@ -136,7 +136,7 @@ fun changeScreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navControl
         modifier = Modifier
             .fillMaxSize()
             .background(Color(101, 105, 212))
-            .padding(16.dp)
+            .padding(26.dp)
     ) {
         // Верхние кнопки (отмена и подтверждение)
         Row(
@@ -156,16 +156,16 @@ fun changeScreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navControl
             IconButton(onClick = {
                 viewModel.addDebt(
                     dateEdit = LocalDate.now().toString(),
-                    amount = changeAmountValue,
+                    amount = changeAmountValue.toDouble(),
                     isDebtReduce = sign.toBoolean(),
                     userId = id.toInt()
                 )
                 viewModel.updateUser(id.toInt(),
-                    change = if (sign.toBoolean()) -changeAmountValue else changeAmountValue
+                    change = if (sign.toBoolean()) -changeAmountValue.toDouble() else changeAmountValue.toDouble()
                 )
                 navController.popBackStack()
             },
-                enabled = changeAmountValue != 0.0
+                enabled = changeAmountValue != ""
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
@@ -181,7 +181,7 @@ fun changeScreen(viewModel:UserViewModel,debtViewModel:DebtViewModel, navControl
         // Поле ввода
         OutlinedTextField(
             value = changeAmountValue.toString(),
-            onValueChange = { changeAmountValue = it.toDoubleOrNull() ?: 0.0 },
+            onValueChange = { changeAmountValue = it },
             label = { Text("Сумма", color = Color.White) },
             modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
             keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),

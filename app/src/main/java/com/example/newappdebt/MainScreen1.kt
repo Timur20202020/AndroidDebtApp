@@ -2,6 +2,7 @@ package com.example.newappdebt
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
@@ -35,18 +37,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.newappdebt.data.User
 import com.example.newappdebt.mvvm.UserViewModel
-//import kotlinx.serialization.encodeToString
-//import kotlinx.serialization.json.Json
 
 
 @Composable
@@ -171,7 +174,23 @@ fun  Main_screen(viewModel: UserViewModel, navController: NavController){
                                   selectedList = 2
                             })
                     }
-
+                   Row(modifier = Modifier.fillMaxWidth()) {
+                       Row(Modifier.background(
+                           if (selectedList==1){Color(229, 220, 252)}
+                           else{Color.Transparent}
+                       ).weight(0.4f)) {
+                           Spacer(Modifier.height(2.dp))
+                       }
+//                       Row(Modifier.weight(0.2f)) {
+//                           Spacer(Modifier.height(2.dp))
+//                       }
+                       Row(Modifier.background(
+                           if (selectedList==2){Color(229, 220, 252)}
+                           else{Color.Transparent}
+                       ).weight(0.4f)) {
+                           Spacer(Modifier.height(2.dp))
+                       }
+                   }
 
                     DebtList(currentList, navController = navController)
                 }
@@ -201,8 +220,8 @@ fun DebtList(debts:List<User>,navController: NavController) {
     }
     else{
         LazyColumn(modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(vertical = 8.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)){
+            contentPadding = PaddingValues(vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp)){
             items(debts.size){
                     debt -> DebtItem(debt = debts[debt], navController = navController)
             }
@@ -214,6 +233,12 @@ fun DebtList(debts:List<User>,navController: NavController) {
 fun DebtItem(debt: User, navController: NavController) {
 
     Card(modifier = Modifier
+
+        .shadow(
+        elevation = 6.dp,
+        shape = RoundedCornerShape(10.dp)
+
+    )
         .fillMaxWidth()
         .padding(8.dp)
 
@@ -230,7 +255,7 @@ fun DebtItem(debt: User, navController: NavController) {
                     color = Color(255, 255, 255),
                     fontSize = 18.sp)
 
-                Text(text ="${debt.amount}" , fontWeight = FontWeight(700),
+                Text(text ="${debt.amount.toInt()} ₽" , fontWeight = FontWeight(700),
                     color = Color(255, 255, 255),
                     fontSize = 22.sp
                 )

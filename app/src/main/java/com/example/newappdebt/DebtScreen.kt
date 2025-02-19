@@ -69,7 +69,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color(101, 105, 212))
-            .padding(16.dp)
+            .padding(26.dp)
     ) {
         // Верхние кнопки (отмена и подтверждение)
         Row(

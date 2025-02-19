@@ -177,7 +177,7 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("${user?.amount}", color = Color.White, fontSize = 50.sp, fontWeight = FontWeight.Bold)
+                    Text("${user?.amount?.toInt()}₽", color = Color.White, fontSize = 50.sp, fontWeight = FontWeight.Bold)
                     Text(if (user?.isSwitch==true) "Я ДОЛЖЕН" else "МНЕ ДОЛЖНЫ", color = Color.White)
                     user?.comment?.let { Text(it, color = Color.White) }
                 }
@@ -254,7 +254,7 @@ Column(modifier = Modifier.padding(24.dp) ) {
             }
 
             Spacer(Modifier.height(16.dp))
-            Text("${debthistory2.size}")
+//            Text("${debthistory2.size}")
              Row(modifier = Modifier.background(Color(47, 49, 109))) {
               DebtHistoryList(debthistory2)
           }

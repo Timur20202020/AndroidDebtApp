@@ -7,13 +7,13 @@ import androidx.room.PrimaryKey
 
 
 @Entity(tableName = "debt_history"
-//    , foreignKeys = [ForeignKey(
-//    entity = User::class,
-//    parentColumns = arrayOf("id"),
-//    childColumns = arrayOf("userId"),
-//    onDelete = ForeignKey.CASCADE,
-//    onUpdate = ForeignKey.CASCADE
-//)]
+    , foreignKeys = [ForeignKey(
+    entity = User::class,
+    parentColumns = arrayOf("id"),
+    childColumns = arrayOf("userId"),
+    onDelete = ForeignKey.CASCADE,
+    onUpdate = ForeignKey.CASCADE
+)]
 )
 data class Debt_History(
     @PrimaryKey(autoGenerate = true)
