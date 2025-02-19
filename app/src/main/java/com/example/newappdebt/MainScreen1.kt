@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -232,13 +233,14 @@ fun DebtList(debts:List<User>,navController: NavController) {
 @Composable
 fun DebtItem(debt: User, navController: NavController) {
 
-    Card(modifier = Modifier
+    Card(elevation = CardDefaults.cardElevation(defaultElevation = 14.dp),
+        modifier = Modifier
 
-        .shadow(
-        elevation = 6.dp,
-        shape = RoundedCornerShape(10.dp)
-
-    )
+//        .shadow(
+//        elevation = 6.dp,
+//        shape = RoundedCornerShape(10.dp)
+//
+//    )
         .fillMaxWidth()
         .padding(8.dp)
 
@@ -248,8 +250,8 @@ fun DebtItem(debt: User, navController: NavController) {
         }
     ) {
 
-        Column(modifier = Modifier
-            .background(Color(160, 163, 236))
+        Column(modifier = Modifier.
+             background(Color(160, 163, 236))
             .padding(6.dp)) {
             Row() {
                 Text(text = "${debt.name}", modifier = Modifier.weight(0.9f),
