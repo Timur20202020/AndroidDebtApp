@@ -17,18 +17,27 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.BasicAlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -36,20 +45,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.example.newappdebt.data.Debt_History
 import com.example.newappdebt.mvvm.DebtViewModel
 import com.example.newappdebt.mvvm.UserViewModel
+import com.example.newappdebt.view.changeAmountscreen
+import java.time.LocalDate
+import kotlin.math.sign
 
 //@Preview
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("NewApi")
 @Composable
 fun EditSreenExperimental(
@@ -87,11 +106,92 @@ fun EditSreenExperimental(
     val debthistory2 by viewModel.debtFlowHistory.collectAsState()
 
 
-//     val amount by remember { mutableStateOf(100.0) }
+    val openDialog = remember { mutableStateOf(false) }
+    var sign by remember { mutableStateOf(true) }
 
 
-//     viewModel.getDebtByUser(id.toInt())
-//     val debts by viewModel.debtFlowHistory.collectAsState()
+   if (openDialog.value){
+       Dialog(
+           onDismissRequest = {},
+           properties = DialogProperties()
+       ) {
+           Button(onClick = {openDialog.value=false}) {
+               Text("!")
+           }
+           val focusRequester = remember { FocusRequester() }
+           val focusManager = LocalFocusManager.current
+           var changeAmountValue by remember { mutableStateOf("") }
+
+//           val id = backStackEntry.arguments?.getString("id") ?: ""
+//           val sign = backStackEntry.arguments?.getString("negativesign") ?: ""
+
+//           viewModel.getUserById(id.toInt())
+//
+//           val user by viewModel.userLiveData.collectAsState()
+
+           Column(
+               modifier = Modifier
+                   .background(Color(101, 105, 212))
+                   .padding(26.dp)
+           ) {
+               // Верхние кнопки (отмена и подтверждение)
+               Row(
+                   modifier = Modifier.fillMaxWidth(),
+                   horizontalArrangement = Arrangement.SpaceBetween
+               ) {
+                   IconButton(onClick = {
+                       openDialog.value= false
+                   }) {
+                       Icon(
+                           imageVector = Icons.Default.Close,
+                           contentDescription = "Закрыть",
+                           tint = Color.Red,
+                           modifier = Modifier.size(40.dp)
+                       )
+                   }
+                   IconButton(onClick = {
+                       viewModel.addDebt(
+                           dateEdit = LocalDate.now().toString(),
+                           amount = changeAmountValue.toDouble(),
+                           isDebtReduce = sign,
+                           userId = id.toInt()
+                       )
+                       viewModel.updateUser(id.toInt(),
+                           change = if (sign) -changeAmountValue.toDouble() else changeAmountValue.toDouble()
+                       )
+                       openDialog.value=false
+                   },
+                       enabled = changeAmountValue != ""
+                   ) {
+                       Icon(
+                           imageVector = Icons.Default.Check,
+                           contentDescription = "Подтвердить",
+                           tint = Color.Green,
+                           modifier = Modifier.size(40.dp)
+                       )
+                   }
+               }
+
+               Spacer(modifier = Modifier.height(16.dp))
+
+               // Поле ввода
+               OutlinedTextField(
+                   value = changeAmountValue.toString(),
+                   onValueChange = { changeAmountValue = it },
+                   label = { Text("Сумма", color = Color.White) },
+                   modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
+                   keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
+
+                   )
+
+               // Устанавливаем фокус на текстовое поле при первом рендеринге
+               LaunchedEffect(Unit) {
+                   focusRequester.requestFocus()
+               }
+           }
+
+       }
+   }
 
 
 Column(modifier = Modifier.padding(24.dp) ) {
@@ -177,9 +277,16 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
             Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text("${user?.amount?.toInt()}₽", color = Color.White, fontSize = 50.sp, fontWeight = FontWeight.Bold)
-                    Text(if (user?.isSwitch==true) "Я ДОЛЖЕН" else "МНЕ ДОЛЖНЫ", color = Color.White)
-                    user?.comment?.let { Text(it, color = Color.White) }
+                    Text("${user?.amount?.toInt()}₽", color = Color.White,
+                        fontSize = 35.sp, fontWeight = FontWeight(700))
+                    Text(if (user?.isSwitch==true) "Я ДОЛЖЕН" else "МНЕ ДОЛЖНЫ",
+                        color = Color(229, 220, 252),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight(400)
+                        )
+                    user?.comment?.let { Text(it, color = Color.White, fontSize = 12.sp,
+                        fontWeight = FontWeight(400)
+                    ) }
                 }
             }
 
@@ -189,19 +296,10 @@ Column(modifier = Modifier.padding(24.dp) ) {
                 IconButton(
 
                     onClick = {
-//                        viewModel.addDebt(
-//                            dateEdit = LocalDate.now().toString(),
-//                            amount = amount,
-//                            isDebtReduce = true,
-//                            userId = id.toInt()
-//                        )
 
-//                        viewModel.updateUser(
-//                        id.toInt(),
-//                        change = -amount
-
-//                    )
-                        navController.navigate("changeAmount/${id}/${true}")
+                        sign=true
+                        openDialog.value = true
+//                        navController.navigate("changeAmount/${id}/${true}")
                               },
                     colors = IconButtonColors(
                         containerColor = Color.Red,
@@ -224,17 +322,9 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
                 IconButton(
                     onClick = {
-//                        viewModel.addDebt(
-//                            dateEdit = LocalDate.now().toString(),
-//                            amount = amount,
-//                            isDebtReduce = false,
-//                            userId = id.toInt()
-//                        )
-//                         viewModel.updateUser(
-//                             id.toInt(),
-//                             change = 100.0
-//                         )
-                              navController.navigate("changeAmount/${id}/${false}")
+                        sign=true
+                        openDialog.value = true
+//                              navController.navigate("changeAmount/${id}/${false}")
 
                     },
                     colors = IconButtonColors(
