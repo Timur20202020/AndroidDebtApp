@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -211,13 +212,17 @@ Column(modifier = Modifier.padding(24.dp) ) {
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+
+                val back_arrow: Painter = painterResource(id = R.drawable.arrow_back)
+                val delete: Painter = painterResource(id = R.drawable.delete_icon)
                 IconButton(onClick = {navController.popBackStack()}) {
-                Icon(
-                    imageVector = Icons.Default.KeyboardArrowDown,
-                    contentDescription = "Назад",
-                    tint = Color.White,
-                    modifier = Modifier.weight(0.2F)
-                )}
+
+                    Image(
+                        painter = back_arrow,
+                        contentDescription = "return"
+                    )
+
+                }
 //                Spacer(modifier = Modifier.weight(0.6F))
                 user?.let {
                     Text(
@@ -232,45 +237,52 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
                 IconButton(
                     onClick = { viewModel.deleteUserByID(id.toInt()); navController.popBackStack()}){
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = "Удалить",
-                    tint = Color.White,
-                    modifier = Modifier.weight(0.2F)
-                )}
+
+                    Image(
+                        painter = delete,
+                        contentDescription = "delete_debt"
+                    )
+
+                }
             }
             Spacer(modifier = Modifier.size(44.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                val calendar: Painter = painterResource(id = R.drawable.calendar_icon)
+
                 Column(modifier = Modifier.weight(0.2F)) {
+
                     Row {
-                        Icon(
-                            imageVector = Icons.Default.DateRange,
-                            contentDescription = "Дата открытия",
-                            tint = Color.White,
-                            modifier = Modifier.weight(0.2F)
+//                        Icon(
+//                            imageVector = Icons.Default.DateRange,
+//                            contentDescription = "Дата открытия",
+//                            tint = Color.White,
+//                            modifier = Modifier.weight(0.2F)
+//                        )
+                        Image(
+                            painter = calendar,
+                            contentDescription = "calendar"
                         )
-                        user?.let { Text(it.dateTime, color = Color.White) }
+                        Spacer(Modifier.width(4.dp))
+                        user?.let { Text(it.dateTime, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight(500)) }
 
                     }
-                    Text("открытие займа", color = Color.White)
+                    Text("открытие займа", color = Color(229, 220, 252), fontSize = 14.sp, fontWeight = FontWeight(400))
                 }
                 Spacer(modifier = Modifier.weight(0.6F))
 
                 Column(modifier = Modifier.weight(0.2F)) {
                     Row {
-                        Icon(
-                            imageVector = Icons.Default.DateRange,
-                            contentDescription = "Дата закрытия",
-                            tint = Color.White,
-                            modifier = Modifier.weight(0.2F)
+                        Image(
+                            painter = calendar,
+                            contentDescription = "calendar"
                         )
-
-                        user?.let { Text(it.dateOfReturn, color = Color.White) }
+                        Spacer(Modifier.width(4.dp))
+                        user?.let { Text(it.dateOfReturn, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight(500)) }
                     }
-                    Text("закрытие займа", color = Color.White)
+                    Text("закрытие займа", color = Color(229, 220, 252), fontSize = 14.sp, fontWeight = FontWeight(400) )
                 }
             }
             Spacer(modifier = Modifier.size(24.dp))
@@ -295,7 +307,8 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
             Row(modifier = Modifier.fillMaxWidth()) {
 
-
+                val plus: Painter = painterResource(id = R.drawable.plus_button)
+                val minus: Painter = painterResource(id = R.drawable.minus_button)
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     IconButton(
 
@@ -311,13 +324,17 @@ Column(modifier = Modifier.padding(24.dp) ) {
                             disabledContentColor = Color.Green
                         )
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowDropDown,
-                            contentDescription = "",
-                            tint = Color.White,
-                            modifier = Modifier.weight(0.2F)
-
+                        Image(
+                            painter = minus,
+                            contentDescription = "minus_debt"
                         )
+//                        Icon(
+//                            imageVector = Icons.Default.ArrowDropDown,
+//                            contentDescription = "",
+//                            tint = Color.White,
+//                            modifier = Modifier.weight(0.2F)
+//
+//                        )
                     }
 
                     Text("уменьшение долга",color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
@@ -340,12 +357,16 @@ Column(modifier = Modifier.padding(24.dp) ) {
                             disabledContentColor = Color.Green
                         )
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "",
-                            tint = Color.White,
-                            modifier = Modifier.weight(0.2F)
+                        Image(
+                            painter = plus,
+                            contentDescription = "debt decrease"
                         )
+//                        Icon(
+//                            imageVector = Icons.Default.Add,
+//                            contentDescription = "",
+//                            tint = Color.White,
+//                            modifier = Modifier.weight(0.2F)
+//                        )
                     }
                     Text("увеличение долга", color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
                 }
@@ -441,16 +462,16 @@ fun DebtHistoryItem(debt: Debt_History) {
                        )
                 }
             }
-//            Row() {
-//
+            Row(modifier = Modifier.fillMaxWidth().height(1.dp).background(Color(101, 105, 212))) {
+
 //                Spacer(modifier = Modifier.weight(0.9f))
 //                Column() {
 //                    Text(text = "", fontWeight = FontWeight(500),
 //                        color = Color(229, 220, 252),
 //                        fontSize = 12.sp)
-//
+
 //                }
-//            }
+            }
         }
 
     }
