@@ -293,54 +293,65 @@ Column(modifier = Modifier.padding(24.dp) ) {
             Spacer(modifier = Modifier.size(24.dp))
 
             Row(modifier = Modifier.fillMaxWidth()) {
-                IconButton(
 
-                    onClick = {
 
-                        sign=true
-                        openDialog.value = true
+                Column {
+                    IconButton(
+
+                        onClick = {
+
+                            sign = true
+                            openDialog.value = true
 //                        navController.navigate("changeAmount/${id}/${true}")
-                              },
-                    colors = IconButtonColors(
-                        containerColor = Color.Red,
-                        contentColor = Color.White,
-                        disabledContainerColor = Color.Red,
-                        disabledContentColor = Color.Green
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowDropDown,
-                        contentDescription = "",
-                        tint = Color.White,
-                        modifier = Modifier.weight(0.2F)
+                        },
+                        colors = IconButtonColors(
+                            containerColor = Color.Red,
+                            contentColor = Color.White,
+                            disabledContainerColor = Color.Red,
+                            disabledContentColor = Color.Green
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowDropDown,
+                            contentDescription = "",
+                            tint = Color.White,
+                            modifier = Modifier.weight(0.2F)
 
-                    )
+                        )
+                    }
+
+                    Text("уменьшение долга")
                 }
+
 //              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
                 Spacer(modifier = Modifier.weight(0.8f))
 //              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
 
-                IconButton(
-                    onClick = {
-                        sign=false
-                        openDialog.value = true
+                Column {
+                    IconButton(
+                        onClick = {
+                            sign = false
+                            openDialog.value = true
 //                              navController.navigate("changeAmount/${id}/${false}")
 
-                    },
-                    colors = IconButtonColors(
-                        containerColor = Color.Green,
-                        contentColor = Color.White,
-                        disabledContainerColor = Color.Green,
-                        disabledContentColor = Color.Green
-                    )
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "",
-                        tint = Color.White,
-                        modifier = Modifier.weight(0.2F)
-                    )
+                        },
+                        colors = IconButtonColors(
+                            containerColor = Color.Green,
+                            contentColor = Color.White,
+                            disabledContainerColor = Color.Green,
+                            disabledContentColor = Color.Green
+                        )
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "",
+                            tint = Color.White,
+                            modifier = Modifier.weight(0.2F)
+                        )
+                    }
+                    Text("уменьшение долга")
                 }
+
             }
 
             Spacer(Modifier.height(16.dp))
@@ -410,13 +421,13 @@ fun DebtHistoryItem(debt: Debt_History) {
                         contentDescription = "debt increase")
                 }
                 Text(text = if (debt.isDebtReduce == true){" уменьшение долга"}else{" увеличение долга"}, modifier = Modifier.weight(0.9f),
-                    fontWeight = FontWeight(500),
                     color = Color(255, 255, 255),
-                    fontSize = 18.sp)
+//                    fontSize = 18.sp
+                )
 
-                Text(text = if (debt.isDebtReduce == true){"-${debt.amount}"}else{"${debt.amount}"}, fontWeight = FontWeight(700),
+                Text(text = if (debt.isDebtReduce == true){"-${debt.amount}"}else{"${debt.amount}"},
                     color = Color(255, 255, 255),
-                    fontSize = 22.sp
+//                    fontSize = 22.sp
                 )
 
 
@@ -428,20 +439,20 @@ fun DebtHistoryItem(debt: Debt_History) {
 
                     Text(text = "${debt.dateOfEdit}", fontWeight = FontWeight(400),
                         color = Color(229, 220, 252),
-                        fontSize = 12.sp,
+//                        fontSize = 12.sp,
                        )
                 }
             }
-            Row() {
-
-                Spacer(modifier = Modifier.weight(0.9f))
-                Column() {
-                    Text(text = "", fontWeight = FontWeight(500),
-                        color = Color(229, 220, 252),
-                        fontSize = 12.sp)
-
-                }
-            }
+//            Row() {
+//
+//                Spacer(modifier = Modifier.weight(0.9f))
+//                Column() {
+//                    Text(text = "", fontWeight = FontWeight(500),
+//                        color = Color(229, 220, 252),
+//                        fontSize = 12.sp)
+//
+//                }
+//            }
         }
 
     }
