@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -53,6 +54,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -115,23 +117,16 @@ fun EditSreenExperimental(
            onDismissRequest = {},
            properties = DialogProperties()
        ) {
-           Button(onClick = {openDialog.value=false}) {
-               Text("!")
-           }
+
            val focusRequester = remember { FocusRequester() }
            val focusManager = LocalFocusManager.current
            var changeAmountValue by remember { mutableStateOf("") }
 
-//           val id = backStackEntry.arguments?.getString("id") ?: ""
-//           val sign = backStackEntry.arguments?.getString("negativesign") ?: ""
 
-//           viewModel.getUserById(id.toInt())
-//
-//           val user by viewModel.userLiveData.collectAsState()
 
            Column(
                modifier = Modifier
-                   .background(Color(101, 105, 212))
+                   .background(Color(160, 163, 236))
                    .padding(26.dp)
            ) {
                // Верхние кнопки (отмена и подтверждение)
@@ -178,16 +173,20 @@ fun EditSreenExperimental(
                OutlinedTextField(
                    value = changeAmountValue.toString(),
                    onValueChange = { changeAmountValue = it },
-                   label = { Text("Сумма", color = Color.White) },
+                   placeholder = { Text("Сумма", color = Color.White) },
                    modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
 
                    )
 
+
+
+
                // Устанавливаем фокус на текстовое поле при первом рендеринге
                LaunchedEffect(Unit) {
                    focusRequester.requestFocus()
                }
+               Spacer(modifier = Modifier.height(36.dp))
            }
 
        }
@@ -322,7 +321,7 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
                 IconButton(
                     onClick = {
-                        sign=true
+                        sign=false
                         openDialog.value = true
 //                              navController.navigate("changeAmount/${id}/${false}")
 
