@@ -67,6 +67,7 @@ import com.example.newappdebt.mvvm.DebtViewModel
 import com.example.newappdebt.mvvm.UserViewModel
 import com.example.newappdebt.view.changeAmountscreen
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlin.math.sign
 
 //@Preview
@@ -146,7 +147,7 @@ fun EditSreenExperimental(
                    }
                    IconButton(onClick = {
                        viewModel.addDebt(
-                           dateEdit = LocalDate.now().toString(),
+                           dateEdit = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString(),
                            amount = changeAmountValue.toDouble(),
                            isDebtReduce = sign,
                            userId = id.toInt()
@@ -425,7 +426,7 @@ fun DebtHistoryItem(debt: Debt_History) {
                 Spacer(modifier = Modifier.weight(0.9f))
                 Column() {
 
-                    Text(text = "${debt.dateOfEdit} ${debt.userId}", fontWeight = FontWeight(400),
+                    Text(text = "${debt.dateOfEdit}", fontWeight = FontWeight(400),
                         color = Color(229, 220, 252),
                         fontSize = 12.sp,
                        )

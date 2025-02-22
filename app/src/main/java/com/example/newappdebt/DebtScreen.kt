@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.newappdebt.mvvm.UserViewModel
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 
 @SuppressLint("NewApi")
@@ -93,9 +94,9 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
                     name,
                     inputamount.toDouble(),
                     comment.toString(),
-                    createdate = LocalDate.now().toString(),
+                    createdate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString(),
                     swtch,
-                    selectedDate.toString()
+                    selectedDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")).toString()
                 )
                 navController.navigate("main3") },
                 enabled = name.isNotBlank()
