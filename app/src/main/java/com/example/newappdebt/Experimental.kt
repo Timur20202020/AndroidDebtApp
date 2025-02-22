@@ -292,17 +292,17 @@ Column(modifier = Modifier.padding(24.dp) ) {
 
             Spacer(modifier = Modifier.size(24.dp))
 
+
             Row(modifier = Modifier.fillMaxWidth()) {
 
 
-                Column {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     IconButton(
 
                         onClick = {
 
                             sign = true
                             openDialog.value = true
-//                        navController.navigate("changeAmount/${id}/${true}")
                         },
                         colors = IconButtonColors(
                             containerColor = Color.Red,
@@ -320,21 +320,19 @@ Column(modifier = Modifier.padding(24.dp) ) {
                         )
                     }
 
-                    Text("уменьшение долга")
+                    Text("уменьшение долга",color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
                 }
 
 //              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
                 Spacer(modifier = Modifier.weight(0.8f))
 //              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
 
-                Column {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     IconButton(
                         onClick = {
                             sign = false
                             openDialog.value = true
-//                              navController.navigate("changeAmount/${id}/${false}")
-
-                        },
+                                  },
                         colors = IconButtonColors(
                             containerColor = Color.Green,
                             contentColor = Color.White,
@@ -349,7 +347,7 @@ Column(modifier = Modifier.padding(24.dp) ) {
                             modifier = Modifier.weight(0.2F)
                         )
                     }
-                    Text("уменьшение долга")
+                    Text("увеличение долга", color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
                 }
 
             }
@@ -425,7 +423,7 @@ fun DebtHistoryItem(debt: Debt_History) {
 //                    fontSize = 18.sp
                 )
 
-                Text(text = if (debt.isDebtReduce == true){"-${debt.amount}"}else{"${debt.amount}"},
+                Text(text = if (debt.isDebtReduce == true){"-${debt.amount.toInt()}₽"}else{"${debt.amount.toInt()}₽"},
                     color = Color(255, 255, 255),
 //                    fontSize = 22.sp
                 )
@@ -439,7 +437,7 @@ fun DebtHistoryItem(debt: Debt_History) {
 
                     Text(text = "${debt.dateOfEdit}", fontWeight = FontWeight(400),
                         color = Color(229, 220, 252),
-//                        fontSize = 12.sp,
+                        fontSize = 10.sp,
                        )
                 }
             }
