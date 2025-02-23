@@ -44,9 +44,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
@@ -122,14 +124,14 @@ fun EditSreenExperimental(
 
            val focusRequester = remember { FocusRequester() }
            val focusManager = LocalFocusManager.current
-           var changeAmountValue by remember { mutableStateOf("") }
+           var changeAmountValue by rememberSaveable{ mutableStateOf("") }
 
 
 
            Column(
                modifier = Modifier
                    .background(Color(160, 163, 236))
-                   .padding(26.dp)
+                   .padding(top = 26.dp)
            ) {
                // Верхние кнопки (отмена и подтверждение)
                Row(
@@ -195,11 +197,11 @@ fun EditSreenExperimental(
    }
 
 
-Column(modifier = Modifier.padding(24.dp) ) {
+Column(modifier = Modifier.fillMaxSize() ) {
 
-    Row(modifier = Modifier.fillMaxWidth()) {
+//    Row(modifier = Modifier.fillMaxWidth()) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.weight(0.4f).fillMaxSize()
                 .background(
                     Color(
                         101,
@@ -305,29 +307,104 @@ Column(modifier = Modifier.padding(24.dp) ) {
             Spacer(modifier = Modifier.size(24.dp))
 
 
-            Row(modifier = Modifier.fillMaxWidth()) {
+//            Row(modifier = Modifier.fillMaxWidth()) {
+//
+//                val plus: Painter = painterResource(id = R.drawable.plus_button)
+//                val minus: Painter = painterResource(id = R.drawable.minus_button)
+//                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                    IconButton(
+//                        modifier = Modifier.scale(1.5f),
+//                        onClick = {
+//
+//                            sign = true
+//                            openDialog.value = true
+//                        },
+//                        colors = IconButtonColors(
+//                            containerColor = Color.Red,
+//                            contentColor = Color.White,
+//                            disabledContainerColor = Color.Red,
+//                            disabledContentColor = Color.Green
+//                        )
+//                    ) {
+//                        Image(
+//                            painter = minus,
+//                            contentDescription = "minus_debt"
+//                        )
+////                        Icon(
+////                            imageVector = Icons.Default.ArrowDropDown,
+////                            contentDescription = "",
+////                            tint = Color.White,
+////                            modifier = Modifier.weight(0.2F)
+////
+////                        )
+//                    }
+//
+//                    Text("уменьшение долга",color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
+//                }
+//
+////              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
+//                Spacer(modifier = Modifier.weight(0.8f))
+////              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
+//
+//                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//                    IconButton(
+//                        modifier = Modifier.scale(1.5f),
+//                        onClick = {
+//                            sign = false
+//                            openDialog.value = true
+//                                  },
+//                        colors = IconButtonColors(
+//                            containerColor = Color.Green,
+//                            contentColor = Color.White,
+//                            disabledContainerColor = Color.Green,
+//                            disabledContentColor = Color.Green
+//                        )
+//                    ) {
+//                        Image(
+//                            painter = plus,
+//                            contentDescription = "debt decrease"
+//                        )
+//
+//                    }
+//                    Text("увеличение долга", color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
+//                }
+//
+//            }
 
-                val plus: Painter = painterResource(id = R.drawable.plus_button)
-                val minus: Painter = painterResource(id = R.drawable.minus_button)
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    IconButton(
+            Spacer(Modifier.height(16.dp))
+//            Text("${debthistory2.size}")
+//             Row(modifier = Modifier.background(Color(47, 49, 109))) {
+////              Text("История долга")
+//              DebtHistoryList(debthistory2)
+//          }
 
-                        onClick = {
+        }
+    Column(
+        modifier = Modifier.weight(0.6f).fillMaxSize().background(Color(47, 49, 109))
+    ) {
+        Row(modifier = Modifier.fillMaxWidth().padding(start = 24.dp, end = 24.dp)) {
 
-                            sign = true
-                            openDialog.value = true
-                        },
-                        colors = IconButtonColors(
-                            containerColor = Color.Red,
-                            contentColor = Color.White,
-                            disabledContainerColor = Color.Red,
-                            disabledContentColor = Color.Green
-                        )
-                    ) {
-                        Image(
-                            painter = minus,
-                            contentDescription = "minus_debt"
-                        )
+            val plus: Painter = painterResource(id = R.drawable.plus_button)
+            val minus: Painter = painterResource(id = R.drawable.minus_button)
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    modifier = Modifier.scale(1.5f),
+                    onClick = {
+
+                        sign = true
+                        openDialog.value = true
+                    },
+                    colors = IconButtonColors(
+                        containerColor = Color.Red,
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.Red,
+                        disabledContentColor = Color.Green
+                    )
+                ) {
+                    Image(
+                        painter = minus,
+                        contentDescription = "minus_debt"
+                    )
 //                        Icon(
 //                            imageVector = Icons.Default.ArrowDropDown,
 //                            contentDescription = "",
@@ -335,56 +412,50 @@ Column(modifier = Modifier.padding(24.dp) ) {
 //                            modifier = Modifier.weight(0.2F)
 //
 //                        )
-                    }
-
-                    Text("уменьшение долга",color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
                 }
 
-//              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
-                Spacer(modifier = Modifier.weight(0.8f))
-//              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
-
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    IconButton(
-                        onClick = {
-                            sign = false
-                            openDialog.value = true
-                                  },
-                        colors = IconButtonColors(
-                            containerColor = Color.Green,
-                            contentColor = Color.White,
-                            disabledContainerColor = Color.Green,
-                            disabledContentColor = Color.Green
-                        )
-                    ) {
-                        Image(
-                            painter = plus,
-                            contentDescription = "debt decrease"
-                        )
-//                        Icon(
-//                            imageVector = Icons.Default.Add,
-//                            contentDescription = "",
-//                            tint = Color.White,
-//                            modifier = Modifier.weight(0.2F)
-//                        )
-                    }
-                    Text("увеличение долга", color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
-                }
-
+                Text("уменьшение долга",color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
             }
 
-            Spacer(Modifier.height(16.dp))
-//            Text("${debthistory2.size}")
-             Row(modifier = Modifier.background(Color(47, 49, 109))) {
-              DebtHistoryList(debthistory2)
-          }
+//              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
+            Spacer(modifier = Modifier.weight(0.8f))
+//              Button(modifier = Modifier.weight(0.2f).background(Color.Red, shape = CircleShape), onClick = {}) { "-"}
+
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                IconButton(
+                    modifier = Modifier.scale(1.5f),
+                    onClick = {
+                        sign = false
+                        openDialog.value = true
+                    },
+                    colors = IconButtonColors(
+                        containerColor = Color.Green,
+                        contentColor = Color.White,
+                        disabledContainerColor = Color.Green,
+                        disabledContentColor = Color.Green
+                    )
+                ) {
+                    Image(
+                        painter = plus,
+                        contentDescription = "debt decrease"
+                    )
+
+                }
+                Text("увеличение долга", color = Color(229, 220, 252), fontWeight = FontWeight(400), fontSize = 10.sp)
+            }
 
         }
+        Row(modifier = Modifier.background(Color(47, 49, 109))) {
+//              Text("История долга")
+            DebtHistoryList(debthistory2)
+        }
+
+    }
     }
 
 
  }
-}
+//}
 
 @Composable
 fun DebtHistoryList(debts:List<Debt_History>) {
