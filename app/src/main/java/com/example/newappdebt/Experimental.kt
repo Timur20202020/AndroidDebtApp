@@ -112,7 +112,7 @@ fun EditSreenExperimental(
     val debthistory2 by viewModel.debtFlowHistory.collectAsState()
 
 
-    val openDialog = remember { mutableStateOf(false) }
+    val openDialog = rememberSaveable { mutableStateOf(false) }
     var sign by remember { mutableStateOf(true) }
 
 
