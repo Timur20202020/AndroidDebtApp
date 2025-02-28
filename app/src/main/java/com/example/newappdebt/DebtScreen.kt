@@ -64,15 +64,15 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
 
     val users by viewModel.users.collectAsState()
 
-    var name by remember {   mutableStateOf("") }
-    var inputamount by remember  { mutableStateOf("") }
-    var swtch by remember { mutableStateOf(true) }
+    var name by rememberSaveable {   mutableStateOf("") }
+    var inputamount by rememberSaveable { mutableStateOf("") }
+    var swtch by rememberSaveable{ mutableStateOf(true) }
 
-    var selectedDate by remember { mutableStateOf(LocalDate.now()) } // Храним выбранную дату
-    var showDatePicker by remember { mutableStateOf(false) } // Показывать ли диалог выбора даты
+    var selectedDate by rememberSaveable{ mutableStateOf(LocalDate.now()) } // Храним выбранную дату
+    var showDatePicker by rememberSaveable{ mutableStateOf(false) } // Показывать ли диалог выбора даты
 
 
-    var comment by remember {   mutableStateOf("") }
+    var comment by rememberSaveable{   mutableStateOf("") }
 
 
     val krestik: Painter = painterResource(id = R.drawable.krestik)
