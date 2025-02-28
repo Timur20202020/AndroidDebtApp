@@ -68,7 +68,7 @@ fun  Main_screen(viewModel: UserViewModel, navController: NavController){
 
       var selectedList by rememberSaveable { mutableStateOf(1) }
 
-      val tabcolor by rememberSaveable { mutableStateOf(Color(160, 163, 236)) }
+      val tabcolor by remember { mutableStateOf(Color(160, 163, 236)) }
 
 
     val currentList = when (selectedList) {
