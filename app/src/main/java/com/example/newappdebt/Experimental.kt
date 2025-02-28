@@ -37,6 +37,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonColors
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -180,8 +181,12 @@ fun EditSreenExperimental(
                    placeholder = { Text("Сумма", color = Color.White) },
                    modifier = Modifier.fillMaxWidth().focusRequester(focusRequester),
                    keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
-
+                   colors = OutlinedTextFieldDefaults.colors(
+                       focusedBorderColor = Color.Transparent, // Убираем границу при фокусе
+                       unfocusedBorderColor = Color.Transparent // Убираем границу в обычном состоянии
                    )
+                   )
+               Row(modifier = Modifier.fillMaxWidth().height(1.dp).background(Color(47, 49, 109))) {  }
 
 
 
