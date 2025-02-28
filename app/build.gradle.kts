@@ -68,6 +68,7 @@ dependencies {
 
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.benchmark.macro)
     ksp(libs.androidx.room.compiler)
 
 

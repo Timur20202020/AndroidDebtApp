@@ -41,7 +41,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -73,6 +75,9 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
     var comment by remember {   mutableStateOf("") }
 
 
+    val krestik: Painter = painterResource(id = R.drawable.krestik)
+    val galka: Painter = painterResource(id = R.drawable.galka)
+
 
     Column(
         modifier = Modifier
@@ -85,7 +90,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
             modifier = Modifier.fillMaxWidth().padding(start = 24.dp, end = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            IconButton(modifier = Modifier.scale(1.5f),onClick = {
+            IconButton(modifier = Modifier.scale(1.1f),onClick = {
 
                 navController.navigate("main3") }
             ,
@@ -99,11 +104,10 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
                 Icon(
                     imageVector = Icons.Default.Close,
                     contentDescription = "Закрыть",
-                    tint = Color.Red,
-                    modifier = Modifier.size(40.dp)
+                    tint = Color.Red
                 )
             }
-            IconButton(modifier = Modifier.scale(1.5f), onClick = {
+            IconButton(modifier = Modifier.scale(1.1f), onClick = {
 
                 viewModel.addUSer(
                     name,
@@ -125,8 +129,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
                 Icon(
                     imageVector = Icons.Default.Check,
                     contentDescription = "Подтвердить",
-                    tint = Color.Green,
-                    modifier = Modifier.size(40.dp)
+                    tint = Color.Green
                 )
             }
         }
@@ -213,7 +216,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
                 onValueChange = {name = it},
                 label = { Text("Имя", color = Color(229, 220, 252)) },
                 modifier = Modifier.fillMaxWidth(),
-                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent, // Убираем границу при фокусе
                     unfocusedBorderColor = Color.Transparent // Убираем границу в обычном состоянии
                 )
@@ -225,7 +228,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
                 onValueChange = {inputamount= it },
                 label = { Text("Сумма", color = Color(229, 220, 252)) },
                 modifier = Modifier.fillMaxWidth(),
-                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent, // Убираем границу при фокусе
                     unfocusedBorderColor = Color.Transparent // Убираем границу в обычном состоянии
                 ),
@@ -240,7 +243,7 @@ fun DebtScreen(viewModel: UserViewModel,navController: NavHostController) {
                 onValueChange = {comment=it},
                 label = { Text("Комментарий к долгу", color = Color(229, 220, 252)) },
                 modifier = Modifier.fillMaxWidth(),
-                colors = androidx.compose.material3.OutlinedTextFieldDefaults.colors(
+                colors = OutlinedTextFieldDefaults.colors(
                     focusedBorderColor = Color.Transparent, // Убираем границу при фокусе
                     unfocusedBorderColor = Color.Transparent // Убираем границу в обычном состоянии
                 )

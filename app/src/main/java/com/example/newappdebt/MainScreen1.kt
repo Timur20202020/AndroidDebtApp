@@ -35,6 +35,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -65,9 +66,9 @@ fun  Main_screen(viewModel: UserViewModel, navController: NavController){
 //      var isIDebetor by remember { mutableStateOf(usersFiltered2) }
 
 
-      var selectedList by remember { mutableStateOf(1) }
+      var selectedList by rememberSaveable { mutableStateOf(1) }
 
-      val tabcolor by remember { mutableStateOf(Color(160, 163, 236)) }
+      val tabcolor by rememberSaveable { mutableStateOf(Color(160, 163, 236)) }
 
 
     val currentList = when (selectedList) {

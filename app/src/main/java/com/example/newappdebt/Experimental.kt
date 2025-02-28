@@ -254,7 +254,7 @@ Column(modifier = Modifier.fillMaxSize() ) {
             ) {
                 val calendar: Painter = painterResource(id = R.drawable.calendar_icon)
 
-                Column(modifier = Modifier.weight(0.2F)) {
+                Column(modifier = Modifier.weight(0.3F)) {
 
                     Row {
 //                        Icon(
@@ -268,7 +268,7 @@ Column(modifier = Modifier.fillMaxSize() ) {
                             contentDescription = "calendar"
                         )
                         Spacer(Modifier.width(4.dp))
-                        user?.let { Text(it.dateTime, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight(500)) }
+                        user?.let { Text(it.dateTime, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight(500)) }
 
                     }
                     Text("открытие займа", color = Color(229, 220, 252), fontSize = 14.sp, fontWeight = FontWeight(400))
@@ -282,7 +282,7 @@ Column(modifier = Modifier.fillMaxSize() ) {
                             contentDescription = "calendar"
                         )
                         Spacer(Modifier.width(4.dp))
-                        user?.let { Text(it.dateOfReturn, color = Color.White, fontSize = 16.sp, fontWeight = FontWeight(500)) }
+                        user?.let { Text(it.dateOfReturn, color = Color.White, fontSize = 14.sp, fontWeight = FontWeight(500)) }
                     }
                     Text("закрытие займа", color = Color(229, 220, 252), fontSize = 14.sp, fontWeight = FontWeight(400) )
                 }
