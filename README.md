@@ -1,4 +1,5 @@
 **Simple debt register application**
+
 ![image](https://github.com/user-attachments/assets/49049fa6-1f5b-4d16-b9cb-1bdb47e9c85b)
 ![DebtAppScreen3](https://github.com/user-attachments/assets/c24dd8e7-cc62-4f56-b932-f8c74ce1dcbf)
 ![DebtAppScreen2](https://github.com/user-attachments/assets/0b7ffaac-cc32-4f4e-aa96-cf4eb7fa783c)
